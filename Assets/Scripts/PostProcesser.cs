@@ -4,19 +4,16 @@ using UnityEngine.Rendering.PostProcessing;
 
 
 [RequireComponent(typeof(Camera)),
-// RequireComponent(typeof(SceneColorSetup))
 ]
 public class PostProcesser : MonoBehaviour
 {
-
-
     [Header("Pixel Shader")]
     public ShaderState pixelState = ShaderState.On;
     public bool dynamicPixelSize = false;
     public int screenHeight = 192;
     public float pixelsPerUnit = 24f;
-    [Range(1f / 32f, 1)] public float zoom = 0.125f;
 
+    [Range(1f / 32f, 1)] public float zoom = 0.125f;
 
     [Header("Outline Shader")]
     public ShaderState outlineState = ShaderState.On;
@@ -28,9 +25,6 @@ public class PostProcesser : MonoBehaviour
     public float angleThreshold = 0.5f;
     public int angleFactorScale = 7;
 
-
-
-
     public enum ShaderState
     {
         On,
@@ -38,12 +32,10 @@ public class PostProcesser : MonoBehaviour
         Debug,
     }
 
-
     void OnEnable()
-{
-    Camera.main.depthTextureMode = DepthTextureMode.DepthNormals | DepthTextureMode.Depth;
-}
-
+    {
+        Camera.main.depthTextureMode = DepthTextureMode.DepthNormals | DepthTextureMode.Depth;
+    }
 
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
@@ -57,58 +49,36 @@ public class PostProcesser : MonoBehaviour
         outlineMaterial.SetColor("_OutlineColor", outlineColor);
         outlineMaterial.SetFloat("_ColorShift", colorShift);
 
-
-        //UpdateZoom();
-
-
         var pixelScreenHeight = screenHeight;
-
 
         if (dynamicPixelSize)
         {
             pixelScreenHeight = (int)(1 / zoom * pixelsPerUnit);
         }
 
-
         var pixelScreenWidth = (int)(pixelScreenHeight * Camera.main.aspect + 0.5f);
-
-
         var tempTex = RenderTexture.GetTemporary(src.descriptor);
-
-
         var screenSize = new Vector2(Screen.width, Screen.height);
-
 
         if (pixelState == ShaderState.On)
         {
             src.filterMode = FilterMode.Point;
-
-
             tempTex.Release();
             tempTex.height = pixelScreenHeight;
             tempTex.width = pixelScreenWidth;
             tempTex.filterMode = FilterMode.Point;
             tempTex.Create();
-
-
             screenSize = new Vector2(pixelScreenWidth, pixelScreenHeight);
         }
         else
         {
             src.filterMode = FilterMode.Bilinear;
-
-
             tempTex.filterMode = FilterMode.Bilinear;
             tempTex.Release();
             tempTex.Create();
         }
 
-
-
-
         outlineMaterial.SetVector("_ScreenSize", screenSize);
-
-
         if (outlineState != ShaderState.Off)
         {
             Graphics.Blit(src, tempTex, outlineMaterial);
@@ -120,10 +90,7 @@ public class PostProcesser : MonoBehaviour
             Graphics.Blit(tempTex, dest);
         }
 
-
         RenderTexture.ReleaseTemporary(tempTex);
-
-
         Graphics.SetRenderTarget(dest);
     }
 }

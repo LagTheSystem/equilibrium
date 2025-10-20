@@ -40,13 +40,17 @@ public class ObjectPool : MonoBehaviour
     }
 
     public GameObject InstantiateFromPool(Vector3 position, Quaternion rotation) {
-        GameObject instance = GetPooledObject();
-        if (instance != null) {
-            instance.transform.position = position;
-            instance.transform.rotation = rotation;
-            instance.SetActive(true);
-            return instance;
+        if (GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicSystem>().useObjectPooling) {
+            GameObject instance = GetPooledObject();
+            if (instance != null) {
+                instance.transform.position = position;
+                instance.transform.rotation = rotation;
+                instance.SetActive(true);
+                return instance;
+            }
+            return null;
+        } else {
+            return Instantiate(objectToPool, position, rotation);
         }
-        return null;
     }
 }

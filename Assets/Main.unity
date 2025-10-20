@@ -312,12 +312,13 @@ MonoBehaviour:
   yourScoreText: {fileID: 777961893}
   playAgainScreen: {fileID: 1609103351}
   bombsEnabled: 1
-  spawnChance: 40
+  spawnChance: 30
   maxTickSpacing: 70
   zRange: 8
   xOffset: 25
   xRange: 5
   targetOffset: {x: 0, y: 2, z: 0}
+  useObjectPooling: 1
 --- !u!4 &235396869
 Transform:
   m_ObjectHideFlags: 0
@@ -1777,7 +1778,7 @@ MonoBehaviour:
   map: {fileID: 6861206533989145092, guid: 92b83aa1dd53a5d4aba977b3cbdf015c, type: 3}
   moveSpeed: 10
   rotateSpeed: 65
-  stationaryMult: 2
+  stationaryMult: 1.5
   gravityStrength: 175
   gravityRandomness: 30
 --- !u!4 &2081044996
