@@ -31,6 +31,9 @@ public class LogicSystem : MonoBehaviour
     private int bombTicks = 0;
     private PlayerController playerScript;
 
+    [Header("Optimization")]
+    public bool useObjectPooling = true;
+
     private bool gameOverSkipped = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -111,9 +114,11 @@ public class LogicSystem : MonoBehaviour
     {
         Vector3 playerPos = player.transform.position;
         Vector3 spawnPos = new Vector3(player.transform.position.x + xOffset + Random.Range(-xRange, xRange), playerPos.y, Random.Range(-zRange, zRange));
-        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-
-        enemy.GetComponent<BombScript>().targetPosition = new Vector3(targetOffset.x + playerPos.x + (Mathf.Round(playerScript.inputVector.y) * playerScript.moveSpeed * 1.33f), targetOffset.y + playerPos.y, targetOffset.z + playerPos.z);
+        GameObject enemy = ObjectPool.SharedInstance.InstantiateFromPool(spawnPos, Quaternion.identity);
+        if (enemy != null) {
+            enemy.GetComponent<BombScript>().targetPosition = new Vector3(targetOffset.x + playerPos.x + (Mathf.Round(playerScript.inputVector.y) * playerScript.moveSpeed * 1.33f), targetOffset.y + playerPos.y, targetOffset.z + playerPos.z);
+            enemy.GetComponent<BombScript>().Launch();
+        }
     }
 
     public IEnumerator flash(int times, GameObject item)

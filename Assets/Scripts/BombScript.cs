@@ -12,18 +12,21 @@ public class BombScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Launch();
+    }
+
+    void OnEnable() {
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         if (transform.position.y < -20)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
-    private void Launch()
+    public void Launch()
     {
         Vector3 direction = targetPosition - transform.position;
         float h = direction.y; // height difference
@@ -41,6 +44,8 @@ public class BombScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.tag == "BumpReceiver") {
+            gameObject.SetActive(false);
+        }
     }
 }

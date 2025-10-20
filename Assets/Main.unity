@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BumpLogic
   bumpStrength: 25
+  minimumBump: 0.1
   player: {fileID: 2081044995}
 --- !u!136 &144677909
 CapsuleCollider:
@@ -282,6 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 235396869}
   - component: {fileID: 235396868}
+  - component: {fileID: 235396870}
   m_Layer: 0
   m_Name: LogicSystem
   m_TagString: Logic
@@ -331,6 +333,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &235396870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235396867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d954ada55707c8440a88bbd28dfa4db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+  pooledObjects: []
+  objectToPool: {fileID: 6575656162408613908, guid: 8f9fbf2211c75f041907972e19042e19, type: 3}
+  amountToPool: 10
 --- !u!1001 &337698527
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -877,7 +894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1609103352
 RectTransform:
   m_ObjectHideFlags: 0
@@ -967,6 +984,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e400c9e27801dc641a2ff4fbfc060ba3, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e400c9e27801dc641a2ff4fbfc060ba3, type: 3}
+      propertyPath: m_TagString
+      value: BumpReceiver
       objectReference: {fileID: 0}
     - target: {fileID: 3853268898807207900, guid: e400c9e27801dc641a2ff4fbfc060ba3, type: 3}
       propertyPath: m_CastShadows
@@ -1335,7 +1356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.60784316, b: 0.5803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1581,7 +1602,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1932641450}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 235396868}
+        m_TargetAssemblyTypeName: LogicSystem, Assembly-CSharp
+        m_MethodName: reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1932641450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1743,8 +1776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   map: {fileID: 6861206533989145092, guid: 92b83aa1dd53a5d4aba977b3cbdf015c, type: 3}
   moveSpeed: 10
-  rotateSpeed: 50
-  stationaryMult: 3
+  rotateSpeed: 65
+  stationaryMult: 2
   gravityStrength: 175
   gravityRandomness: 30
 --- !u!4 &2081044996
@@ -1840,15 +1873,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 96882978858513855, guid: 28c126688c7e67748bc7d2571da7b0aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23.25
+      value: -11.63
       objectReference: {fileID: 0}
     - target: {fileID: 96882978858513855, guid: 28c126688c7e67748bc7d2571da7b0aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.82
+      value: -1.38
       objectReference: {fileID: 0}
     - target: {fileID: 96882978858513855, guid: 28c126688c7e67748bc7d2571da7b0aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.78
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: 96882978858513855, guid: 28c126688c7e67748bc7d2571da7b0aa, type: 3}
       propertyPath: m_LocalRotation.w

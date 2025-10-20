@@ -23,7 +23,7 @@ public class BumpLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bomb" && player.isAlive)
         {
-            gameObject.transform.parent.Rotate(new Vector3(Mathf.Clamp(collision.GetContact(0).point.z, .5f, 2) * bumpStrength, 0, 0));
+            player.transform.Rotate(new Vector3(Mathf.Clamp(collision.GetContact(0).point.z, .5f, 2) * bumpStrength, 0, 0));
         }
     }
 }
