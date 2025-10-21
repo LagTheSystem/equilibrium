@@ -1778,7 +1778,7 @@ MonoBehaviour:
   map: {fileID: 6861206533989145092, guid: 92b83aa1dd53a5d4aba977b3cbdf015c, type: 3}
   moveSpeed: 10
   rotateSpeed: 65
-  stationaryMult: 1.5
+  stationaryMult: 1.1
   gravityStrength: 175
   gravityRandomness: 30
 --- !u!4 &2081044996

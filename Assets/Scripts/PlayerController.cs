@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
     {
         inputVector = value.Get<Vector2>();
     }
+
+    void OnEmote() {
+        animator.SetBool("isEmoting", true);
+    }
+
     void Update()
     {
         float rot = gameObject.transform.rotation.x;
