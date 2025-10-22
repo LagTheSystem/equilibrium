@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BumpLogic
   bumpStrength: 25
-  minimumBump: 0.1
+  minimumBump: 0.5
   player: {fileID: 2081044995}
 --- !u!136 &144677909
 CapsuleCollider:
@@ -242,10 +242,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.34
+  m_Radius: 0.22
   m_Height: 1.86
   m_Direction: 1
-  m_Center: {x: 0, y: 1.02, z: 0}
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!54 &144677910
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ MonoBehaviour:
   xOffset: 25
   xRange: 5
   targetOffset: {x: 0, y: 2, z: 0}
-  useObjectPooling: 1
+  useObjectPooling: 0
 --- !u!4 &235396869
 Transform:
   m_ObjectHideFlags: 0

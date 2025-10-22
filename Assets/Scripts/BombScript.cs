@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class BombScript : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class BombScript : MonoBehaviour
     {
         if (transform.position.y < -20)
         {
-            gameObject.SetActive(false);
+            ObjectPool.SharedInstance.destroyInstance(gameObject);
         }
     }
 
@@ -45,7 +46,16 @@ public class BombScript : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "BumpReceiver") {
-            gameObject.SetActive(false);
+            StartCoroutine(explode());
+        } else if (collision.gameObject.tag == "BombDestroyer") {
+            ObjectPool.SharedInstance.destroyInstance(gameObject);
         }
+    }
+
+    IEnumerator explode() {
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        ObjectPool.SharedInstance.destroyInstance(gameObject);
     }
 }

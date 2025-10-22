@@ -7,6 +7,7 @@ public class ObjectPool : MonoBehaviour
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
     public int amountToPool;
+    private bool isEnabled;
 
     void Awake()
     {
@@ -15,7 +16,8 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
-        if (GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicSystem>().useObjectPooling) {
+        isEnabled = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicSystem>().useObjectPooling;
+        if (isEnabled) {
             pooledObjects = new List<GameObject>();
             GameObject tmp;
             for(int i = 0; i < amountToPool; i++)
@@ -40,7 +42,7 @@ public class ObjectPool : MonoBehaviour
     }
 
     public GameObject InstantiateFromPool(Vector3 position, Quaternion rotation) {
-        if (GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicSystem>().useObjectPooling) {
+        if (isEnabled) {
             GameObject instance = GetPooledObject();
             if (instance != null) {
                 instance.transform.position = position;
@@ -51,6 +53,14 @@ public class ObjectPool : MonoBehaviour
             return null;
         } else {
             return Instantiate(objectToPool, position, rotation);
+        }
+    }
+
+    public void destroyInstance(GameObject instance) {
+        if (isEnabled) {
+            instance.SetActive(false);
+        } else {
+            Destroy(instance);
         }
     }
 }
