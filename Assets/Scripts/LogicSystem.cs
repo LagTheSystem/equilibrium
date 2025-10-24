@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class LogicSystem : MonoBehaviour
 {
@@ -10,11 +11,11 @@ public class LogicSystem : MonoBehaviour
     public GameObject enemyPrefab;
 
     [Header("UI")]
-    public GameObject scoreText;
-    public GameObject gameOverText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI gameOverText;
     public GameObject scoreScreen;
-    public GameObject highScoreText;
-    public GameObject yourScoreText;
+    public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI yourScoreText;
     public GameObject playAgainScreen;
 
     [Header("Bomb Spawning")]
@@ -52,7 +53,7 @@ public class LogicSystem : MonoBehaviour
         {
             gameOverSkipped = true;
             StopAllCoroutines();
-            gameOverText.SetActive(false);
+            gameOverText.gameObject.SetActive(false);
             scoreScreen.SetActive(false);
             scoreScreen.SetActive(false);
             playAgainScreen.SetActive(true);
@@ -76,7 +77,7 @@ public class LogicSystem : MonoBehaviour
         {
             currentScore = (int)(player.transform.position.x + 24);
         }
-        scoreText.GetComponent<Text>().text = currentScore.ToString();
+        scoreText.text = currentScore.ToString();
     }
 
     public void gameOver()
@@ -86,22 +87,22 @@ public class LogicSystem : MonoBehaviour
             PlayerPrefs.SetInt("highScore", currentScore);
         }
 
-        highScoreText.GetComponent<Text>().text = PlayerPrefs.GetInt("highScore").ToString();
-        yourScoreText.GetComponent<Text>().text = currentScore.ToString();
+        highScoreText.text = PlayerPrefs.GetInt("highScore").ToString();
+        yourScoreText.text = currentScore.ToString();
 
         StartCoroutine(gameOverScreen());
     }
 
     public IEnumerator gameOverScreen()
     {
-        scoreText.SetActive(false);
-        StartCoroutine(flash(4, gameOverText));
+        scoreText.gameObject.SetActive(false);
+        StartCoroutine(flash(4, gameOverText.gameObject));
         yield return new WaitForSeconds(4);
         StartCoroutine(flash(4, scoreScreen));
         yield return new WaitForSeconds(4);
-        scoreScreen.SetActive(true);
+        scoreScreen.gameObject.SetActive(true);
         yield return new WaitForSeconds(4);
-        scoreScreen.SetActive(false);
+        scoreScreen.gameObject.SetActive(false);
         playAgainScreen.SetActive(true);
     }
 
