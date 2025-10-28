@@ -234,8 +234,8 @@ MonoBehaviour:
   yourScoreText: {fileID: 1885662787}
   playAgainScreen: {fileID: 1609103351}
   bombsEnabled: 1
-  spawnChance: 30
-  maxTickSpacing: 70
+  spawnChance: 60
+  maxTickSpacing: 100
   zRange: 8
   xOffset: 25
   xRange: 5
@@ -2488,6 +2488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerPos: {fileID: 2081044996}
   offset: {x: -26, y: 21.5, z: 0}
+  gainPerFrame: 0.05
+  logic: {fileID: 235396868}
 --- !u!114 &8833793289392674875
 MonoBehaviour:
   m_ObjectHideFlags: 0
