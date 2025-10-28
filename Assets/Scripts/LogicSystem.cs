@@ -137,4 +137,8 @@ public class LogicSystem : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public int getScore() {
+        return currentScore;
+    }
 }
