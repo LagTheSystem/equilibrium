@@ -2494,7 +2494,8 @@ MonoBehaviour:
   creepStartPos: 0
   gainSpeed: 0.05
   gainAcceleration: 0.01
-  recoverySpeed: 0.01
+  recoverySpeed: 4
+  maxGainSpeed: 12.5
 --- !u!114 &8833793289392674875
 MonoBehaviour:
   m_ObjectHideFlags: 0

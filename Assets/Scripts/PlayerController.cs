@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isAlive", isAlive);
 
         transform.Rotate(new Vector3(gravityValue * direction, 0, 0) * Time.deltaTime);
-        if ((rot > .60 || rot < -.60) && isAlive)
+        if ((rot > .70 || rot < -.70) && isAlive)
         {
             die();
         }
@@ -59,10 +59,10 @@ public class PlayerController : MonoBehaviour
     public void die()
     {
         isAlive = false;
-        var rigidbody = gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
+        var rb = gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
         transform.GetChild(0).transform.parent = null;
-        rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;
-        rigidbody.useGravity = true;
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        rb.useGravity = true;
         logic.gameOver();
     }
 

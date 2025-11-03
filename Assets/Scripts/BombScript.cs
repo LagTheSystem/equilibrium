@@ -45,9 +45,9 @@ public class BombScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "BumpReceiver") {
+        if (collision.gameObject.CompareTag("BumpReceiver")) {
             StartCoroutine(explode());
-        } else if (collision.gameObject.tag == "BombDestroyer") {
+        } else if (collision.gameObject.CompareTag("BombDestroyer")) {
             ObjectPool.SharedInstance.destroyInstance(gameObject);
         }
     }

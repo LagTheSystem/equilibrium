@@ -5,12 +5,14 @@ public class CameraManager : MonoBehaviour
     public Transform playerPos;
     public PlayerController player;
     public LogicSystem logic;
-    public Vector3 offset = new Vector3(-26, 21.5f, 0);
+    public Vector3 offset = new(-26, 21.5f, 0);
     [Header("Camera Creep")]
+    public bool creepEnabled = true;
     public float creepStartPos = 100;
     public float gainSpeed = 0.05f;
     public float gainAcceleration = 0.01f;
     public float recoverySpeed = 1f;
+    public float maxGainSpeed = 12.5f;
     private float currentXOffset = 0;
     private float xMaximum = 5;
     private Vector3 targetPos;
@@ -26,7 +28,7 @@ public class CameraManager : MonoBehaviour
         {
             creepStartPos = 0;
             gainSpeed = 0.1f;
-            gainAcceleration = 0.05f;
+            gainAcceleration = 0.025f;
         }
     }
 
@@ -34,15 +36,15 @@ public class CameraManager : MonoBehaviour
     {
         //targetPos = new Vector3(playerPos.position + offset.x, offset.y, offset.z);
         currentGainSpeed = (gainAcceleration * (logic.getScore() - creepStartPos)) + gainSpeed;
-        if (logic.getScore() >= creepStartPos)
+        if (logic.getScore() >= creepStartPos && creepEnabled)
         {
             if (player.inputVector.y > 0 && currentXOffset > -xMaximum)
             {
-                currentXOffset -= (currentGainSpeed + recoverySpeed) * Time.deltaTime;
+                currentXOffset -= recoverySpeed * Time.deltaTime;
             }
             else
             {
-                currentXOffset += currentGainSpeed * Time.deltaTime;
+                currentXOffset += Mathf.Clamp(currentGainSpeed, 0, maxGainSpeed) * Time.deltaTime;
             }
         }
         targetPos.x = playerPos.position.x + currentXOffset + offset.x;

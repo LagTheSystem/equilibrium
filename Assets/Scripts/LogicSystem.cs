@@ -29,7 +29,7 @@ public class LogicSystem : MonoBehaviour
     public float xRange = 5;
 
     [Header("Bomb Targeting")]
-    public Vector3 targetOffset = new Vector3(0, 0, 0);
+    public Vector3 targetOffset = new(0, 0, 0);
     private int currentScore;
     private int bombTicks = 0;
     private PlayerController playerScript;
@@ -116,7 +116,7 @@ public class LogicSystem : MonoBehaviour
     public void spawnEnemy()
     {
         Vector3 playerPos = player.transform.position;
-        Vector3 spawnPos = new Vector3(player.transform.position.x + xOffset + Random.Range(-xRange, xRange), playerPos.y, Random.Range(-zRange, zRange));
+        Vector3 spawnPos = new(player.transform.position.x + xOffset + Random.Range(-xRange, xRange), playerPos.y, Random.Range(-zRange, zRange));
         GameObject enemy = ObjectPool.SharedInstance.InstantiateFromPool(spawnPos, Quaternion.identity);
         if (enemy != null) {
             enemy.GetComponent<BombScript>().targetPosition = new Vector3(targetOffset.x + playerPos.x + (Mathf.Round(playerScript.inputVector.y) * playerScript.moveSpeed * 1.33f), targetOffset.y + playerPos.y, targetOffset.z + playerPos.z);

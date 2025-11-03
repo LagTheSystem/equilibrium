@@ -10,12 +10,21 @@ public class BumpLogic : MonoBehaviour
     public PlayerController player;
     private List<GameObject> objects = new List<GameObject>();
 
+    private int counter = 0;
+    
+    void FixedUpdate()
+    {
+        counter++;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Bomb" && player.isAlive && !objects.Contains(collision.gameObject))
+        if (collision.gameObject.CompareTag("Bomb") && player.isAlive && !objects.Contains(collision.gameObject))
         {
             objects.Add(collision.gameObject);
-            player.transform.Rotate(new Vector3(Mathf.Sign(collision.GetContact(0).point.z) * Mathf.Clamp(Mathf.Abs(collision.GetContact(0).point.z), minimumBump, maximumBump) * bumpStrength, 0, 0));
+            player.transform.Rotate(new Vector3(Mathf.Sign(collision.GetContact(0).point.z) * Mathf.Clamp(Mathf.Abs(collision.GetContact(0).point.z), minimumBump, maximumBump) * bumpStrength / Mathf.Clamp((-.75f * counter) + 10, 1, 10), 0, 0));
+            //player.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(1, 0, 0);
+            counter = 0;
         }
     }
 }

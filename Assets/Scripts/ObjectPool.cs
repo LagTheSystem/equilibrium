@@ -51,9 +51,8 @@ public class ObjectPool : MonoBehaviour
                 return instance;
             }
             return null;
-        } else {
-            return Instantiate(objectToPool, position, rotation);
         }
+        return Instantiate(objectToPool, position, rotation);
     }
 
     public void destroyInstance(GameObject instance) {
