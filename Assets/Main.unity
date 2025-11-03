@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115836d90194f19498591e9d8698cfad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BumpLogic
-  bumpStrength: 15
-  minimumBump: 0.5
-  maximumBump: 1
+  bumpStrength: 25
+  minimumBump: 0.75
+  maximumBump: 5
   player: {fileID: 2081044995}
 --- !u!136 &144677909
 CapsuleCollider:
@@ -2157,6 +2157,7 @@ GameObject:
   - component: {fileID: 2081044996}
   - component: {fileID: 2081044995}
   - component: {fileID: 2081044997}
+  - component: {fileID: 2081044998}
   m_Layer: 0
   m_Name: PlayerContainer
   m_TagString: Player
@@ -2228,6 +2229,33 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 4614135807421334825}
+--- !u!54 &2081044998
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081044994}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 110
+  m_CollisionDetection: 0
 --- !u!1 &1852095851328864935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,7 +2378,7 @@ MonoBehaviour:
   outlineState: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 0.25490198}
   colorShift: 0.05
-  depthThreshold: 0.003
+  depthThreshold: 6.99
   normalThreshold: 0.35
   normalEdgeBias: {x: 1, y: 1, z: 1}
   angleThreshold: 0.5
@@ -2491,6 +2519,7 @@ MonoBehaviour:
   player: {fileID: 2081044995}
   logic: {fileID: 235396868}
   offset: {x: -26, y: 21.5, z: 0}
+  creepEnabled: 1
   creepStartPos: 0
   gainSpeed: 0.05
   gainAcceleration: 0.01
