@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
         inputVector = value.Get<Vector2>();
     }
 
-    void OnEmote() {
+    void OnEmote()
+    {
         animator.SetBool("isEmoting", true);
     }
 
@@ -63,5 +64,10 @@ public class PlayerController : MonoBehaviour
         rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;
         rigidbody.useGravity = true;
         logic.gameOver();
+    }
+
+    public bool isMoving()
+    {
+        return inputVector.y != 0;
     }
 }

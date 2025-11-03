@@ -227,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   player: {fileID: 2081044994}
   enemyPrefab: {fileID: 6575656162408613908, guid: 8f9fbf2211c75f041907972e19042e19, type: 3}
+  quickMode: 1
   scoreText: {fileID: 816170808}
   gameOverText: {fileID: 1151092354}
   scoreScreen: {fileID: 700300928}
@@ -235,7 +236,7 @@ MonoBehaviour:
   playAgainScreen: {fileID: 1609103351}
   bombsEnabled: 1
   spawnChance: 60
-  maxTickSpacing: 100
+  maxTickSpacing: 30
   zRange: 8
   xOffset: 25
   xRange: 5
@@ -2226,7 +2227,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 4614135807421334825}
 --- !u!1 &1852095851328864935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,9 +2488,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerPos: {fileID: 2081044996}
-  offset: {x: -26, y: 21.5, z: 0}
-  gainPerFrame: 0.05
+  player: {fileID: 2081044995}
   logic: {fileID: 235396868}
+  offset: {x: -26, y: 21.5, z: 0}
+  creepStartPos: 0
+  gainSpeed: 0.05
+  gainAcceleration: 0.01
+  recoverySpeed: 0.01
 --- !u!114 &8833793289392674875
 MonoBehaviour:
   m_ObjectHideFlags: 0

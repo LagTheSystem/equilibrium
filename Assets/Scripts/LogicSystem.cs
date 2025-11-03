@@ -10,6 +10,8 @@ public class LogicSystem : MonoBehaviour
     public GameObject player;
     public GameObject enemyPrefab;
 
+    public bool quickMode = false;
+
     [Header("UI")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
