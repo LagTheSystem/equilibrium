@@ -18,8 +18,6 @@ public class CameraManager : MonoBehaviour
     private Vector3 targetPos;
     private float currentGainSpeed;
 
-
-
     void Start()
     {
         targetPos = offset + playerPos.position;
@@ -49,5 +47,9 @@ public class CameraManager : MonoBehaviour
         }
         targetPos.x = playerPos.position.x + currentXOffset + offset.x;
         transform.position = targetPos;
+        if (currentXOffset > 10 && player.isAlive)
+        {
+            player.die();
+        }
     }
 }
