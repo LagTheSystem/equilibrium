@@ -15,7 +15,7 @@ public class BumpLogic : MonoBehaviour
     {
         if (player.isAlive)
         {
-            transform.localRotation = new Quaternion(0, 0.7071068f, 0, 0.7071068f);
+            transform.localRotation = Quaternion.Euler(0, 90, 0);
             transform.localPosition = new Vector3(0, 0.09f, 0);
         }
     }
