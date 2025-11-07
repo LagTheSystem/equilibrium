@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 public class ObjectPool : MonoBehaviour
 {
+    
+    /*
+     * OBJECT POOLING DOES NOT WORK
+     * In order to fix it I would need to adapt how a lot of the game is programmed which I don't want to do.
+     * The performance gains are pretty minimal anyway.
+     */
+    
     public static ObjectPool SharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;

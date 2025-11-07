@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class BumpLogic : MonoBehaviour
 {
-
     public float bumpStrength = 10;
     public float minimumBump = .5f;
     public float maximumBump = 4f;
@@ -27,10 +26,14 @@ public class BumpLogic : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        // Check we are being hit by a bomb that hasn't hit us already
         if (collision.gameObject.CompareTag("Bomb") && player.isAlive && !objects.Contains(collision.gameObject))
         {
+            // Add bomb to list so it can't bump multiple times
             objects.Add(collision.gameObject);
-            //player.transform.Rotate(new Vector3(Mathf.Sign(collision.GetContact(0).point.z) * Mathf.Clamp(Mathf.Abs(collision.GetContact(0).point.z), minimumBump, maximumBump) * bumpStrength / Mathf.Clamp((-.75f * counter) + 10, 1, 10), 0, 0));
+            // Old bump system:
+            // player.transform.Rotate(new Vector3(Mathf.Sign(collision.GetContact(0).point.z) * Mathf.Clamp(Mathf.Abs(collision.GetContact(0).point.z), minimumBump, maximumBump) * bumpStrength / Mathf.Clamp((-.75f * counter) + 10, 1, 10), 0, 0));
+            // Apply angularVelocity to the player
             player.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(bumpStrength, 0, 0) * Mathf.Sign(collision.GetContact(0).point.z) * Mathf.Clamp(Mathf.Abs(collision.GetContact(0).point.z), minimumBump, maximumBump) / Mathf.Clamp((-.75f * counter) + 10, 1, 10);
             counter = 0;
         }

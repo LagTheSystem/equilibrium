@@ -38,8 +38,7 @@ public class LogicSystem : MonoBehaviour
     public bool useObjectPooling = true;
 
     private bool gameOverSkipped = false;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         playerScript = player.transform.GetComponent<PlayerController>();
@@ -50,7 +49,8 @@ public class LogicSystem : MonoBehaviour
     void Update()
     {
         updateScore();
-
+        
+        // Allow for skipping the game over screen by pressing enter
         if (!gameOverSkipped && !playerScript.isAlive && playerScript.GetComponent<PlayerInput>().actions["submit"].WasPressedThisFrame())
         {
             gameOverSkipped = true;
@@ -84,6 +84,7 @@ public class LogicSystem : MonoBehaviour
 
     public void gameOver()
     {
+        // Set high score
         if (currentScore > PlayerPrefs.GetInt("highScore"))
         {
             PlayerPrefs.SetInt("highScore", currentScore);
@@ -97,6 +98,7 @@ public class LogicSystem : MonoBehaviour
 
     public IEnumerator gameOverScreen()
     {
+        // Text flashing for game over
         scoreText.gameObject.SetActive(false);
         StartCoroutine(flash(4, gameOverText.gameObject));
         yield return new WaitForSeconds(4);
@@ -116,11 +118,15 @@ public class LogicSystem : MonoBehaviour
     public void spawnEnemy()
     {
         Vector3 playerPos = player.transform.position;
+        // Generate a spawn position wih a random x and z based off player position, and y value the same as the player.
         Vector3 spawnPos = new(player.transform.position.x + xOffset + Random.Range(-xRange, xRange), playerPos.y, Random.Range(-zRange, zRange));
         GameObject enemy = ObjectPool.SharedInstance.InstantiateFromPool(spawnPos, Quaternion.identity);
-        if (enemy != null) {
-            enemy.GetComponent<BombScript>().targetPosition = new Vector3(targetOffset.x + playerPos.x + (Mathf.Round(playerScript.inputVector.y) * playerScript.moveSpeed * 1.33f), targetOffset.y + playerPos.y, targetOffset.z + playerPos.z);
-            enemy.GetComponent<BombScript>().Launch();
+        if (enemy != null)
+        {
+            var enemyLogic = enemy.GetComponent<BombScript>();
+            // Set target position based off current player position and current player movement speed
+            enemyLogic.targetPosition = new Vector3(targetOffset.x + playerPos.x + (Mathf.Round(playerScript.inputVector.y) * playerScript.moveSpeed * 1.33f), targetOffset.y + playerPos.y, Random.Range(-5, 5) + targetOffset.z + playerPos.z);
+            enemyLogic.Launch();
         }
     }
 

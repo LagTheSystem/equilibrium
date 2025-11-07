@@ -32,21 +32,23 @@ public class CameraManager : MonoBehaviour
 
     void LateUpdate()
     {
-        //targetPos = new Vector3(playerPos.position + offset.x, offset.y, offset.z);
         currentGainSpeed = (gainAcceleration * (logic.getScore() - creepStartPos)) + gainSpeed;
         if (logic.getScore() >= creepStartPos && creepEnabled)
         {
             if (player.inputVector.y > 0 && currentXOffset > -xMaximum)
             {
+                // Catch up when moving
                 currentXOffset -= recoverySpeed * Time.deltaTime;
             }
             else
             {
+                // Fall behind when stopped
                 currentXOffset += Mathf.Clamp(currentGainSpeed, 0, maxGainSpeed) * Time.deltaTime;
             }
         }
         targetPos.x = playerPos.position.x + currentXOffset + offset.x;
         transform.position = targetPos;
+        // If player is off-screen, game over
         if (currentXOffset > 10 && player.isAlive)
         {
             player.die();

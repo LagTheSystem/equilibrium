@@ -3,13 +3,10 @@ using System.Collections;
 
 public class BombScript : MonoBehaviour
 {
-
     public Vector3 targetPosition;
     public float launchAngle = 45f;
-
     private Rigidbody rb;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,6 +18,7 @@ public class BombScript : MonoBehaviour
 
     void Update()
     {
+        // Kill bombs when off screen
         if (transform.position.y < -20)
         {
             ObjectPool.SharedInstance.destroyInstance(gameObject);
@@ -29,6 +27,7 @@ public class BombScript : MonoBehaviour
 
     public void Launch()
     {
+        // ChatGPT magic code to allow for physics based projectile tracking
         Vector3 direction = targetPosition - transform.position;
         float h = direction.y; // height difference
         direction.y = 0;
@@ -45,6 +44,7 @@ public class BombScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        // BumpReceiver is the player, BombDestroyer is the rope
         if (collision.gameObject.CompareTag("BumpReceiver")) {
             StartCoroutine(explode());
         } else if (collision.gameObject.CompareTag("BombDestroyer")) {
@@ -53,8 +53,10 @@ public class BombScript : MonoBehaviour
     }
 
     IEnumerator explode() {
+        // Disable bomb model and run particle systems
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        // Wait for 2 seconds to allow the animation to finish
         yield return new WaitForSeconds(2);
         ObjectPool.SharedInstance.destroyInstance(gameObject);
     }
